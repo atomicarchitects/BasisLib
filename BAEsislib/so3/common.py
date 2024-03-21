@@ -1,0 +1,98 @@
+# Copyright 2024 The e3x Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Common utility functions used in the so3 submodule."""
+
+import math
+from typing import Iterator
+import numpy as np
+import more_itertools
+
+
+def _check_degree_is_positive_or_zero(degree: int) -> None:
+    """Checks whether the input degree is positive or zero."""
+    if degree < 0:
+        raise ValueError(f"degree must be positive or zero, received {degree}")
+
+def _cartesian_permutation_for_degree(l: int) -> np.array:
+  """Generates a permutation to Cartesian order for degree l."""
+  _check_degree_is_positive_or_zero(l)
+  p = np.empty(shape=2 * l + 1, dtype=int)
+  i = 0
+  for m in range(l):
+    p[i] = 2 * l + 1 - (m + 1)
+    i += 1
+    p[i] = m
+    i += 1
+  p[i] = (2 * l + 1) // 2
+  return p
+
+
+def _cartesian_permutation(
+    max_degree: int,
+) -> np.array:
+  """Generates a permutation to Cartesian order for all l=0..max_degree."""
+  _check_degree_is_positive_or_zero(max_degree)
+  p = np.empty(shape=(max_degree + 1) ** 2, dtype=int)
+  for l in range(max_degree + 1):
+    p[l**2 : (l + 1) ** 2] = _cartesian_permutation_for_degree(l) + l**2
+  return p
+
+
+def _total_number_of_spherical_harmonics(max_degree: int) -> int:
+    """Calculates total number of spherical harmonics."""
+    max_degree_plus_one = max_degree + 1
+    return max_degree_plus_one * max_degree_plus_one
+
+
+def _total_number_of_cartesian_monomials(max_degree: int) -> int:
+    """Calculates total number of Cartesian monomials."""
+    return ((max_degree + 1) * (max_degree + 2) * (max_degree + 3)) // 6
+
+
+def _partitions(n: int, k: int, l: int = 0) -> Iterator[tuple[int, ...]]:
+    """Yields all k-tuples of integers >= l that sum to n."""
+    if k < 1:
+        return
+    if k == 1:
+        if n >= l:
+            yield (n,)
+        return
+    for i in range(l, n + 1):
+        for partitions in _partitions(n=n - i, k=k - 1, l=i):
+            yield (i,) + partitions
+
+
+def _multicombinations(n: int, k: int) -> Iterator[tuple[int, ...]]:
+    """Yields all multicombinations of k elements chosen from n variables."""
+    for partition in _partitions(n=n, k=k):
+        for permutation in more_itertools.distinct_permutations(partition):
+            yield permutation
+
+
+def _monomial_powers_of_degree(degree: int) -> Iterator[tuple[int, int, int]]:
+    """Yields all possible (a,b,c) for monomials xᵃyᵇzᶜ with a given degree."""
+    for multicombination in _multicombinations(n=degree, k=3):
+        yield multicombination
+
+
+def _integer_powers(x: np.array, max_degree: int) -> np.array:
+    """Calculates all integer powers up to max_degree of x along axis -2."""
+    return np.cumprod(
+        np.concatenate(
+            (np.ones_like(x), np.repeat(x, max_degree, axis=-2)),
+            axis=-2,
+        ),
+        axis=-2,
+    )

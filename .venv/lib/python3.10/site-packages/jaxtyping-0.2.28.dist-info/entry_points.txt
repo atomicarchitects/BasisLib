@@ -1,0 +1,2 @@
+[pytest11]
+jaxtyping = jaxtyping._pytest_plugin
