@@ -1,5 +1,5 @@
 # BAEsislib
-(name credit @julballa)
+(name credit [@julballa](https://github.com/julballa))
 
 Copy of Numpy-based basis functions utilities from [e3x](https://github.com/google-research/e3x/).
 
