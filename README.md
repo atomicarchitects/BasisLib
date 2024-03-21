@@ -8,4 +8,4 @@ Useful external APIs:
 - `BAEsislib.so3.generate_clebsch_gordan_lookup_table`
 - `BAEsislib.so3.generate_spherical_harmonics_lookup_table`
 
-Refer to `so3.spherical_harmonics` and `so3.clesch_gordan` for their usage.
+Refer to `BAEsislib.so3.spherical_harmonics` and `BAEsislib.so3.clesch_gordan` for their usage.
