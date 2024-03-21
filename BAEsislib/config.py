@@ -42,7 +42,7 @@ class Config:
 
     cartesian_order: bool = True
     use_fused_tensor: bool = False
-    normalization: Normalization = "racah"
+    normalization: Normalization = "4pi"
     spherical_harmonics_cache: Optional[epath.Path] = None
     clebsch_gordan_cache: Optional[epath.Path] = None
     wigner_d_cache: Optional[epath.Path] = None
