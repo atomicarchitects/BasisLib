@@ -8,7 +8,7 @@ import sympy as sp
 from etils import epath
 from absl import logging
 
-from BAEsislib.config import Config
+from BasisLib.config import Config
 from .common import _check_degree_is_positive_or_zero
 from .common import _monomial_powers_of_degree
 from .common import _total_number_of_cartesian_monomials

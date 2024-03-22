@@ -1,5 +1,5 @@
-from BAEsislib.config import Config
-from BAEsislib.ops import normalize
+from BasisLib.config import Config
+from BasisLib.ops import normalize
 from .common import _check_degree_is_positive_or_zero
 from .common import _integer_powers
 from .common import _cartesian_permutation

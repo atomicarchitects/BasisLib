@@ -1,4 +1,4 @@
-from BAEsislib.config import Config
+from BasisLib.config import Config
 from .common import _check_degree_is_positive_or_zero
 from .common import _cartesian_permutation
 from .common import _cartesian_permutation_for_degree

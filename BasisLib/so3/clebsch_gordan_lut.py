@@ -5,7 +5,7 @@ import multiprocessing as mp
 from typing import IO, Tuple, TypedDict, cast
 import numpy as np
 import logging
-from BAEsislib.config import Config
+from BasisLib.config import Config
 
 from .common import _check_degree_is_positive_or_zero
 from .common import _total_number_of_spherical_harmonics

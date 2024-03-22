@@ -1,5 +1,5 @@
 import re
-import BAEsislib
+import BasisLib
 from testing import subtests
 import numpy as np
 import pytest
@@ -10,7 +10,7 @@ import pytest
 @pytest.mark.parametrize("z", [-1.5, 0.0, 1.0])
 def test_spherical_harmonics(x: float, y: float, z: float) -> None:
     r = np.asarray([x, y, z])
-    output = BAEsislib.so3.spherical_harmonics(
+    output = BasisLib.so3.spherical_harmonics(
         r,
         max_degree=2,
         r_is_normalized=True,
@@ -39,7 +39,7 @@ def test_spherical_harmonics_r_is_normalized(r_is_normalized: bool) -> None:
   if not r_is_normalized:
     expected [1:] /= np.sqrt(3)
   assert np.allclose(
-      BAEsislib.so3.spherical_harmonics(
+      BasisLib.so3.spherical_harmonics(
           r,
           max_degree=1,
           r_is_normalized=r_is_normalized,
@@ -53,7 +53,7 @@ def test_spherical_harmonics_r_is_normalized(r_is_normalized: bool) -> None:
 @pytest.mark.parametrize('cartesian_order', [True, False])
 def test_spherical_harmonics_cartesian_order(cartesian_order: bool) -> None:
   r = np.asarray([0.0, 2.0, 3.0])
-  output = BAEsislib.so3.spherical_harmonics(
+  output = BasisLib.so3.spherical_harmonics(
       r,
       max_degree=1,
       r_is_normalized=True,
@@ -71,7 +71,7 @@ def test_spherical_harmonics_cartesian_order(cartesian_order: bool) -> None:
 )
 def test_spherical_harmonics_normalization(normalization: str) -> None:
   r = np.asarray([0.0, 2.0, 3.0])
-  output = BAEsislib.so3.spherical_harmonics(
+  output = BasisLib.so3.spherical_harmonics(
       r,
       max_degree=1,
       r_is_normalized=True,

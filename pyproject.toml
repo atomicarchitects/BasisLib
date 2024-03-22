@@ -1,10 +1,10 @@
 [project]
-name = "BAEsislib"
+name = "BasisLib"
 description = "Your favourite Equivariant basis functions"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
-authors = [{name = "The tinygrad Authors", email="mitkotak0305@gmail.com"}]
+authors = [{name = "The BasisLib Authors", email="mitkotak0305@gmail.com"}]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
@@ -37,8 +37,8 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-homepage = "https://github.com/atomicarchitects/BAEsislib"
-repository = "https://github.com/atomicarchitects/BAEsislib"
+homepage = "https://github.com/atomicarchitects/BasisLib"
+repository = "https://github.com/atomicarchitects/BasisLib"
 # Other: `documentation`, `changelog`
 
 [build-system]
