@@ -45,7 +45,7 @@ class WignerDLookupTable(TypedDict):
   cm: np.array
 
 
-def _generate_wigner_d_lookup_table(
+def generate_wigner_d_lookup_table(
     max_degree: int, num_processes: int = 1
 ) -> WignerDLookupTable:
   """Generates a table with Wigner-D matrix coefficients."""

@@ -2,7 +2,7 @@ import numpy as np
 from BasisLib.config import Config
 from .common import _integer_powers
 from .common import _cartesian_permutation_wigner_d_entries
-from .wigner_d_lookup_lut import _generate_wigner_d_lookup_table
+from .wigner_d_lookup_lut import generate_wigner_d_lookup_table
 
 def _check_rotation_matrix_shape(rot: np.array) -> None:
   """Helper function to check the shape of a rotation matrix.
@@ -115,7 +115,7 @@ def wigner_d(
   _check_rotation_matrix_shape(rot)  # Raise if shape is not (..., 3, 3).
 
   # Load/Generate lookup table and convert to jax arrays.
-  lookup_table = _generate_wigner_d_lookup_table(max_degree)
+  lookup_table = generate_wigner_d_lookup_table(max_degree)
   cm = lookup_table['cm']
   ls = lookup_table['ls']
   # Optionally reorder to Cartesian order.
