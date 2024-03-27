@@ -52,7 +52,7 @@ def random_rotation(
     )
   # Draw random numbers and transform them.
   twopi = 2 * np.pi
-  u = np.random.uniform(size=(num, 3))
+  u = np.random.uniform(size=(num, 3)).astype(np.float32)
   sqrt1 = np.sqrt(1 - u[..., 0])
   sqrt2 = np.sqrt(u[..., 0])
   angl1 = twopi * u[..., 1]
