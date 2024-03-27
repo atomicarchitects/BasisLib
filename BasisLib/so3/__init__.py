@@ -8,4 +8,4 @@ from .clebsch_gordan_lut import generate_clebsch_gordan_lookup_table
 from .common import _cartesian_permutation
 from .common import _cartesian_permutation_for_degree
 from .normalization import normalization_constant
-from .rotationas import random_rotation
+from .rotations import random_rotation
