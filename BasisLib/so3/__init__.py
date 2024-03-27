@@ -9,3 +9,4 @@ from .common import _cartesian_permutation
 from .common import _cartesian_permutation_for_degree
 from .normalization import normalization_constant
 from .rotations import random_rotation
+from .rotations import wigner_d

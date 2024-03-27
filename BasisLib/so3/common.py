@@ -36,6 +36,22 @@ def _cartesian_permutation(
   return p
 
 
+def _cartesian_permutation_wigner_d_entries(
+    max_degree: int,
+) -> np.array:
+  """Generates a permutation to Cartesian order for Wigner-D matrix entries."""
+  _check_degree_is_positive_or_zero(max_degree)
+  permutations = []
+  offset = 0
+  for l in range(max_degree + 1):
+    pvec = _cartesian_permutation_for_degree(l)
+    num = pvec.size
+    pmat = np.arange(num * num, dtype=pvec.dtype).reshape(num, num)
+    pmat = np.reshape(pmat[pvec, :][:, pvec], -1)
+    permutations.append(pmat + offset)
+    offset += pmat.size
+  return np.concatenate(permutations)
+
 def _total_number_of_spherical_harmonics(max_degree: int) -> int:
     """Calculates total number of spherical harmonics."""
     max_degree_plus_one = max_degree + 1
@@ -46,6 +62,23 @@ def _total_number_of_cartesian_monomials(max_degree: int) -> int:
     """Calculates total number of Cartesian monomials."""
     return ((max_degree + 1) * (max_degree + 2) * (max_degree + 3)) // 6
 
+def _total_number_of_rotation_matrix_monomials(max_degree: int) -> int:
+  """Calculates total number of monomials of 9 variables up to max_degree."""
+  return ((max_degree + 1) * math.comb(max_degree + 9, max_degree + 1)) // 9
+
+def _number_of_rotation_matrix_monomials_of_degree(degree: int) -> int:
+  """Calculates number of monomials of 9 variables of a given degree."""
+  return math.comb(degree + 8, degree)
+
+
+def _number_of_wigner_d_entries_of_degree(degree: int) -> int:
+  """Calculates number of Wigner-D matrix entries of a given degree."""
+  num = 2 * degree + 1
+  return num * num
+
+def _total_number_of_wigner_d_entries(max_degree: int) -> int:
+  """Calculates total number of Wigner-D matrix entries."""
+  return ((max_degree + 1) * (2 * max_degree + 1) * (2 * max_degree + 3)) // 3
 
 def _partitions(n: int, k: int, l: int = 0) -> Iterator[tuple[int, ...]]:
     """Yields all k-tuples of integers >= l that sum to n."""
@@ -72,6 +105,13 @@ def _monomial_powers_of_degree(degree: int) -> Iterator[tuple[int, int, int]]:
     for multicombination in _multicombinations(n=degree, k=3):
         yield multicombination
 
+
+def _rotation_matrix_powers_of_degree(
+    degree: int,
+) -> Iterator[tuple[int, int, int, int, int, int, int, int, int]]:
+  """Yields all power combinations of 9 variable monomials with given degree."""
+  for multicombination in _multicombinations(n=degree, k=9):
+    yield multicombination
 
 def _integer_powers(x: np.array, max_degree: int) -> np.array:
     """Calculates all integer powers up to max_degree of x along axis -2."""
