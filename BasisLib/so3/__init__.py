@@ -8,6 +8,7 @@ from .clebsch_gordan import clebsch_gordan_for_degrees
 from .clebsch_gordan_lut import generate_clebsch_gordan_lookup_table
 from .common import _cartesian_permutation
 from .common import _cartesian_permutation_for_degree
+from .common import _cartesian_permutation_wigner_d_entries
 from .normalization import normalization_constant
 from .rotations import random_rotation
 from .rotations import wigner_d
