@@ -85,7 +85,7 @@ def generate_spherical_harmonics_lookup_table(
         f: IO[bytes],
     ) -> Tuple[int, SphericalHarmonicsLookupTable]:
         """Loads a (compressed) lookup table from the cache and uncompresses it."""
-        with np.load(f) as cache:
+        with np.load(f, allow_pickle=True) as cache:
             cached_max_degree = cache["max_degree"]
             if cached_max_degree < 0:  # Lookup table contains nothing.
                 return -1, _init_empty_lookup_table(max_degree)
@@ -215,6 +215,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     logging.set_verbosity(logging.INFO)
     Config.set_spherical_harmonics_cache(args.path)
-    _generate_spherical_harmonics_lookup_table(
+    generate_spherical_harmonics_lookup_table(
         max_degree=args.max_degree, num_processes=args.num_processes
     )

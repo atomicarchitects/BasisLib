@@ -84,7 +84,7 @@ def generate_clebsch_gordan_lookup_table(
 
   def _load_from_cache(f: IO[bytes]) -> Tuple[int, ClebschGordanLookupTable]:
     """Loads a (compressed) lookup table from the cache and uncompresses it."""
-    with np.load(f) as cache:
+    with np.load(f, allow_pickle=True) as cache:
       cached_max_degree = cache['max_degree']
       if cached_max_degree < 0:  # Lookup table contains nothing.
         return -1, _init_empty_lookup_table(max_degree)
