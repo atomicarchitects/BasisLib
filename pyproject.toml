@@ -26,7 +26,7 @@ keywords = [
 
 dependencies = [
   "absl-py",
-  "numpy==1.26",
+  "numpy",
   "sympy",
   "more_itertools",
   "etils[epath]",
